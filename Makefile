@@ -347,11 +347,13 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   =
-AFLAGS_MODULE   =
-LDFLAGS_MODULE  =
-CFLAGS_KERNEL	=
-AFLAGS_KERNEL	=
+TEGRA3_FLAGS    = -march=armv7-a -mtune=cortex-a9 -ftree-vectorize \
+		  -ffast-math -fsingle-precision-constant -pipe
+CFLAGS_MODULE   = -DMODULE $(TEGRA3_FLAGS)
+AFLAGS_MODULE   = -DMODULE $(TEGRA3_FLAGS)
+LDFLAGS_MODULE  = -T $(srctree)/scripts/module-common.lds
+CFLAGS_KERNEL	= $(TEGRA3_FLAGS)
+AFLAGS_KERNEL	= $(TEGRA3_FLAGS)
 CFLAGS_GCOV	= -fprofile-arcs -ftest-coverage
 
 
