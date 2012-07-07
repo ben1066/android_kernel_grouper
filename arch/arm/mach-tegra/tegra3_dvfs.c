@@ -33,7 +33,7 @@ static bool tegra_dvfs_core_disabled;
 static struct dvfs *cpu_dvfs;
 
 static const int cpu_millivolts[MAX_DVFS_FREQS] = {
-	800, 825, 850, 875, 900, 912, 975, 1000, 1025, 1050, 1075, 1100, 1125, 1150, 1175, 1200, 1212, 1237};
+	800, 825, 850, 875, 900, 912, 975, 1000, 1025, 1050, 1075, 1100, 1125, 1150, 1175, 1200, 1212, 1275, 1300, 1350};
 
 static const unsigned int cpu_cold_offs_mhz[MAX_DVFS_FREQS] = {
 	  50,  50,  50,  50,  50,  50,  50,  50,  50,   50,   50,   50,   50,   50,   50,   50,   50,   50};
@@ -53,7 +53,7 @@ static int cpu_below_core = VDD_CPU_BELOW_VDD_CORE;
 
 static struct dvfs_rail tegra3_dvfs_rail_vdd_cpu = {
 	.reg_id = "vdd_cpu",
-	.max_millivolts = 1250,
+	.max_millivolts = 1350,
 	.min_millivolts = 800,
 	.step = VDD_SAFE_STEP,
 	.jmp_to_zero = true,
@@ -88,6 +88,8 @@ static int tegra3_get_core_floor_mv(int cpu_mv)
 		return 1200;
 	if (cpu_mv <= 1250)
 		return 1300;
+	if (cpu_mv <= 1325)
+		return 1350;
 	BUG();
 }
 
